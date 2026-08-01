@@ -4,7 +4,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
-import Prepare from "@/pages/prepare";
+import Prepare from '@/pages/Prepare/prepare'
+
 import PreClass from "@/pages/pre-class";
 
 const queryClient = new QueryClient();
