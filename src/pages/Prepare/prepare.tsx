@@ -217,7 +217,7 @@ export default function Prepare() {
         });
 
         window.open(
-            "https://www.instagram.online1rehab/your_instagram_id/",
+            "https://www.instagram.com/online1rehab/",
             "_blank"
         );
     };
