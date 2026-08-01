@@ -28,19 +28,19 @@ export default function Step1({
         <div className="flex flex-col gap-14 animate-in fade-in slide-in-from-right-4 duration-500 pb-12">
             <div className="flex flex-col gap-2 mt-2">
                 <p className="text-sm font-semibold tracking-wide text-primary uppercase">
-                    STEP 1 · 환자 정보
+                    STEP 1 · 환자 정보 확인
                 </p>
                 <h1 className="text-2xl md:text-3xl font-bold text-foreground leading-snug break-keep">
-                    환자의 병명을 알려주세요.
+                    환자의 기본 정보를 알려주세요.
                 </h1>
                 <p className="text-base text-muted-foreground leading-relaxed break-keep">
-                    병명에 따라 알맞은 재활 프로그램을 추천해드려요.
+                    현재 상태에 맞는 재활 프로그램을 안내해드리기 위해 필요한 정보를 확인해요.
                 </p>
             </div>
 
             <div>
                 <InputField
-                    label="이름"
+                    label="이름을 알려주세요."
                     placeholder="이름을 입력해주세요"
                     value={patientInfo.name}
                     onChange={(value) =>
@@ -53,7 +53,7 @@ export default function Step1({
             </div>
             <div>
                 <InputField
-                    label="전화번호"
+                    label="연락 가능한 전화번호를 입력해주세요."
                     placeholder="010-0000-0000"
                     type="tel"
                     value={patientInfo.phone}
@@ -71,7 +71,7 @@ export default function Step1({
                 aria-label="환자의 병명을 알려주세요."
             >
                 <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
-                    {"환자의 병명을 알려주세요."}
+                    {"환자의 연령대를 선택해주세요."}
                 </label>
 
 

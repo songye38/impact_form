@@ -30,13 +30,13 @@ export default function Step2({
         <div className="flex flex-col gap-14 animate-in fade-in slide-in-from-right-4 duration-500 pb-12">
             <div className="flex flex-col gap-2 mt-2">
                 <p className="text-sm font-semibold tracking-wide text-primary uppercase">
-                    STEP 2 · 참가 대상 확인
+                    STEP 2 · 신청 대상 확인
                 </p>
                 <h1 className="text-2xl md:text-3xl font-bold text-foreground leading-snug break-keep">
-                    환자의 병명을 알려주세요.
+                    누구를 위한 재활 프로그램인가요?
                 </h1>
                 <p className="text-base text-muted-foreground leading-relaxed break-keep">
-                    병명에 따라 알맞은 재활 프로그램을 추천해드려요.
+                    환자와 신청자의 관계를 확인해 더 적합한 안내를 드릴게요.
                 </p>
             </div>
 
@@ -46,7 +46,7 @@ export default function Step2({
                 aria-label="온라인 화상 참여 가능 여부"
             >
                 <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
-                    온라인 화상 참여가 가능하신가요?
+                    이번 무료 체험은 누구를 위해 신청하시나요?
                 </label>
                 {FOR_WHO_OPTIONS.map((option) => (
                     <OptionCard
@@ -68,7 +68,7 @@ export default function Step2({
                 aria-label="온라인 화상 참여 가능 여부"
             >
                 <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
-                    온라인 화상 참여가 가능하신가요?
+                    환자와 어떤 관계인가요?
                 </label>
 
                 {RELATIONSHIP_OPTIONS.map((option) => (

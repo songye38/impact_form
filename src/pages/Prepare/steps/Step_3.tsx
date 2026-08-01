@@ -55,13 +55,13 @@ export default function Step3({
         <div className="flex flex-col gap-14 animate-in fade-in slide-in-from-right-4 duration-500 pb-12">
             <div className="flex flex-col gap-2 mt-2">
                 <p className="text-sm font-semibold tracking-wide text-primary uppercase">
-                    STEP 3 · 프로그램 참여 가능 여부
+                    STEP 3 · 온라인 재활 참여 가능 여부 확인
                 </p>
                 <h1 className="text-2xl md:text-3xl font-bold text-foreground leading-snug break-keep">
-                    환자의 병명을 알려주세요.
+                    온라인 재활 프로그램 참여 환경을 확인해주세요.
                 </h1>
                 <p className="text-base text-muted-foreground leading-relaxed break-keep">
-                    병명에 따라 알맞은 재활 프로그램을 추천해드려요.
+                    온재활은 화상으로 치료사와 함께 진행되는 프로그램이에요. 참여 가능한 환경인지 확인해요.
                 </p>
             </div>
             <div
@@ -70,7 +70,7 @@ export default function Step3({
                 aria-label="온라인 화상 참여 가능 여부"
             >
                 <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
-                    온라인 화상 참여가 가능하신가요?
+                    화상으로 치료사와 함께 운동하는 것이 가능한가요?
                 </label>
 
                 {OPTIONS_1.map((option) => (
@@ -95,7 +95,7 @@ export default function Step3({
                 aria-label="온라인 화상 참여 가능 여부"
             >
                 <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
-                    뇌졸중 진단을 받은 지 얼마나 되었나요?
+                    뇌졸중 진단 후 얼마나 되었나요?
                 </label>
 
                 {OPTIONS_2.map((option) => (
@@ -120,7 +120,7 @@ export default function Step3({
                 aria-label="온라인 화상 참여 가능 여부"
             >
                 <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
-                    현재 재활운동은 어떻게 하고 계신가요?
+                    현재 재활운동은 어떻게 진행하고 계신가요?
                 </label>
 
                 {OPTIONS_3.map((option) => (
@@ -144,7 +144,7 @@ export default function Step3({
                 aria-label="온라인 화상 참여 가능 여부"
             >
                 <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
-                    디바이스 사용이 가능한가요?
+                    스마트폰 또는 태블릿 사용이 가능한가요?
                 </label>
 
                 {OPTIONS_4.map((option) => (
