@@ -1,6 +1,7 @@
 import OptionCard from "@/components/prepare_components/OptionCard";
 import { useState } from "react";
 import InputField from "@/components/prepare_components/InputField";
+import { ParticipantInfo } from "@/types/types";
 
 
 const FOR_WHO_OPTIONS = [
@@ -16,20 +17,18 @@ const RELATIONSHIP_OPTIONS = [
 ];
 
 interface Step2Props {
-    diagnosis: string | null;
-    handleSelectDiagnosis: (option: string) => void;
-    isAdvancing: boolean;
+    participantInfo: ParticipantInfo;
+    setParticipantInfo: (value: ParticipantInfo) => void;
 }
 
 export default function Step2({
-    diagnosis,
-    handleSelectDiagnosis,
-    isAdvancing,
+    participantInfo,
+    setParticipantInfo,
 }: Step2Props) {
 
     return (
-        <div className="flex flex-col gap-10 animate-in fade-in slide-in-from-right-4 duration-500">
-            <div className="flex flex-col gap-4 mt-2">
+        <div className="flex flex-col gap-14 animate-in fade-in slide-in-from-right-4 duration-500 pb-12">
+            <div className="flex flex-col gap-2 mt-2">
                 <p className="text-sm font-semibold tracking-wide text-primary uppercase">
                     STEP 2 · 참가 대상 확인
                 </p>
@@ -44,38 +43,45 @@ export default function Step2({
             <div
                 className="flex flex-col gap-4"
                 role="radiogroup"
-                aria-label="누구를 위해 신청"
+                aria-label="온라인 화상 참여 가능 여부"
             >
-                <label className="text-base font-bold text-foreground break-keep">
-                    {"  누구를 위한 신청인가요?  "}
+                <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
+                    온라인 화상 참여가 가능하신가요?
                 </label>
                 {FOR_WHO_OPTIONS.map((option) => (
                     <OptionCard
                         key={option}
                         option={option}
-                        isSelected={diagnosis === option}
-                        dimmed={isAdvancing && diagnosis !== option}
-                        disabled={isAdvancing && diagnosis !== option}
-                        onSelect={() => handleSelectDiagnosis(option)}
+                        isSelected={participantInfo.forWho === option}
+                        onSelect={() =>
+                            setParticipantInfo({
+                                ...participantInfo,
+                                forWho: option
+                            })
+                        }
                     />
                 ))}
             </div>
             <div
                 className="flex flex-col gap-4"
                 role="radiogroup"
-                aria-label="환자의 병명을 알려주세요."
+                aria-label="온라인 화상 참여 가능 여부"
             >
-                <label className="text-base font-bold text-foreground break-keep">
-                    {"  환자의 관계를 알려주세요.  "}
+                <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
+                    온라인 화상 참여가 가능하신가요?
                 </label>
+
                 {RELATIONSHIP_OPTIONS.map((option) => (
                     <OptionCard
                         key={option}
                         option={option}
-                        isSelected={diagnosis === option}
-                        dimmed={isAdvancing && diagnosis !== option}
-                        disabled={isAdvancing && diagnosis !== option}
-                        onSelect={() => handleSelectDiagnosis(option)}
+                        isSelected={participantInfo.relationship === option}
+                        onSelect={() =>
+                            setParticipantInfo({
+                                ...participantInfo,
+                                relationship: option
+                            })
+                        }
                     />
                 ))}
             </div>

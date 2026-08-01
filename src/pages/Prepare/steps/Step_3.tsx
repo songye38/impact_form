@@ -4,9 +4,11 @@ import OptionCard from "@/components/prepare_components/OptionCard";
 import { useState } from "react";
 import InputField from "@/components/prepare_components/InputField";
 import CheckboxCard from "@/components/prepare_components/CheckboxCard";
+import { ParticipationInfo } from "@/types/types";
 
 
-//  온라인 화상 참여가 가능하신가요?  
+//  온라인 화상 참여가 가능하신가요? 
+//onlineAvailable 
 const OPTIONS_1 = [
     "가능합니다.",
     "보호자의 도움이 필요합니다.",
@@ -14,6 +16,7 @@ const OPTIONS_1 = [
 ];
 
 //뇌졸중 진단을 받은 지 얼마나 되었나요?
+//diagnosisPeriod
 const OPTIONS_2 = [
     "3개월 미만",
     "3개월 ~ 6개월",
@@ -22,6 +25,7 @@ const OPTIONS_2 = [
 ];
 
 //  현재 재활운동은 어떻게 하고 계신가요?  
+//rehabilitationStatus
 const OPTIONS_3 = [
     "병원에서 치료 중",
     "집에서 혼자 운동",
@@ -29,6 +33,7 @@ const OPTIONS_3 = [
 ];
 
 //  스마트폰 또는 태블릿 사용이 가능하신가요?  
+//deviceAvailable
 const OPTIONS_4 = [
     "혼자 가능합니다.",
     "보호자의 도움이 필요합니다.",
@@ -36,22 +41,19 @@ const OPTIONS_4 = [
 ];
 
 
-
 interface Step3Props {
-    diagnosis: string | null;
-    handleSelectDiagnosis: (option: string) => void;
-    isAdvancing: boolean;
+    participationInfo: ParticipationInfo;
+    setParticipationInfo: (value: ParticipationInfo) => void;
 }
 
 export default function Step3({
-    diagnosis,
-    handleSelectDiagnosis,
-    isAdvancing,
+    participationInfo,
+    setParticipationInfo,
 }: Step3Props) {
 
     return (
-        <div className="flex flex-col gap-10 animate-in fade-in slide-in-from-right-4 duration-500">
-            <div className="flex flex-col gap-4 mt-2">
+        <div className="flex flex-col gap-14 animate-in fade-in slide-in-from-right-4 duration-500 pb-12">
+            <div className="flex flex-col gap-2 mt-2">
                 <p className="text-sm font-semibold tracking-wide text-primary uppercase">
                     STEP 3 · 프로그램 참여 가능 여부
                 </p>
@@ -62,23 +64,26 @@ export default function Step3({
                     병명에 따라 알맞은 재활 프로그램을 추천해드려요.
                 </p>
             </div>
-            {/* options 1 */}
             <div
                 className="flex flex-col gap-4"
                 role="radiogroup"
-                aria-label="환자의 병명을 알려주세요."
+                aria-label="온라인 화상 참여 가능 여부"
             >
-                <label className="text-base font-bold text-foreground break-keep">
-                    {"  환자의 관계를 알려주세요.  "}
+                <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
+                    온라인 화상 참여가 가능하신가요?
                 </label>
+
                 {OPTIONS_1.map((option) => (
                     <OptionCard
                         key={option}
                         option={option}
-                        isSelected={diagnosis === option}
-                        dimmed={isAdvancing && diagnosis !== option}
-                        disabled={isAdvancing && diagnosis !== option}
-                        onSelect={() => handleSelectDiagnosis(option)}
+                        isSelected={participationInfo.onlineAvailable === option}
+                        onSelect={() =>
+                            setParticipationInfo({
+                                ...participationInfo,
+                                onlineAvailable: option
+                            })
+                        }
                     />
                 ))}
             </div>
@@ -87,19 +92,23 @@ export default function Step3({
             <div
                 className="flex flex-col gap-4"
                 role="radiogroup"
-                aria-label="환자의 병명을 알려주세요."
+                aria-label="온라인 화상 참여 가능 여부"
             >
-                <label className="text-base font-bold text-foreground break-keep">
-                    {"  환자의 관계를 알려주세요.  "}
+                <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
+                    뇌졸중 진단을 받은 지 얼마나 되었나요?
                 </label>
+
                 {OPTIONS_2.map((option) => (
                     <OptionCard
                         key={option}
                         option={option}
-                        isSelected={diagnosis === option}
-                        dimmed={isAdvancing && diagnosis !== option}
-                        disabled={isAdvancing && diagnosis !== option}
-                        onSelect={() => handleSelectDiagnosis(option)}
+                        isSelected={participationInfo.diagnosisPeriod === option}
+                        onSelect={() =>
+                            setParticipationInfo({
+                                ...participationInfo,
+                                diagnosisPeriod: option
+                            })
+                        }
                     />
                 ))}
             </div>
@@ -108,19 +117,23 @@ export default function Step3({
             <div
                 className="flex flex-col gap-4"
                 role="radiogroup"
-                aria-label="환자의 병명을 알려주세요."
+                aria-label="온라인 화상 참여 가능 여부"
             >
-                <label className="text-base font-bold text-foreground break-keep">
-                    {"  환자의 관계를 알려주세요.  "}
+                <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
+                    현재 재활운동은 어떻게 하고 계신가요?
                 </label>
+
                 {OPTIONS_3.map((option) => (
                     <OptionCard
                         key={option}
                         option={option}
-                        isSelected={diagnosis === option}
-                        dimmed={isAdvancing && diagnosis !== option}
-                        disabled={isAdvancing && diagnosis !== option}
-                        onSelect={() => handleSelectDiagnosis(option)}
+                        isSelected={participationInfo.rehabilitationStatus === option}
+                        onSelect={() =>
+                            setParticipationInfo({
+                                ...participationInfo,
+                                rehabilitationStatus: option
+                            })
+                        }
                     />
                 ))}
             </div>
@@ -128,19 +141,23 @@ export default function Step3({
             <div
                 className="flex flex-col gap-4"
                 role="radiogroup"
-                aria-label="환자의 병명을 알려주세요."
+                aria-label="온라인 화상 참여 가능 여부"
             >
-                <label className="text-base font-bold text-foreground break-keep">
-                    {"  환자의 관계를 알려주세요.  "}
+                <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
+                    디바이스 사용이 가능한가요?
                 </label>
+
                 {OPTIONS_4.map((option) => (
                     <OptionCard
                         key={option}
                         option={option}
-                        isSelected={diagnosis === option}
-                        dimmed={isAdvancing && diagnosis !== option}
-                        disabled={isAdvancing && diagnosis !== option}
-                        onSelect={() => handleSelectDiagnosis(option)}
+                        isSelected={participationInfo.deviceAvailable === option}
+                        onSelect={() =>
+                            setParticipationInfo({
+                                ...participationInfo,
+                                deviceAvailable: option
+                            })
+                        }
                     />
                 ))}
             </div>

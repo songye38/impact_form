@@ -1,6 +1,7 @@
 import OptionCard from "@/components/prepare_components/OptionCard";
 import { useState } from "react";
 import InputField from "@/components/prepare_components/InputField";
+import { PatientInfo } from "@/types/types";
 
 
 const AGE_OPTIONS = [
@@ -14,22 +15,18 @@ const AGE_OPTIONS = [
 ];
 
 interface Step1Props {
-    diagnosis: string | null;
-    handleSelectDiagnosis: (option: string) => void;
-    isAdvancing: boolean;
+    patientInfo: PatientInfo;
+    setPatientInfo: (value: PatientInfo) => void;
 }
 
 export default function Step1({
-    diagnosis,
-    handleSelectDiagnosis,
-    isAdvancing,
+    patientInfo,
+    setPatientInfo,
 }: Step1Props) {
-    const [name, setName] = useState("");
-    const [phone, setPhone] = useState("");
 
     return (
-        <div className="flex flex-col gap-10 animate-in fade-in slide-in-from-right-4 duration-500">
-            <div className="flex flex-col gap-4 mt-2">
+        <div className="flex flex-col gap-14 animate-in fade-in slide-in-from-right-4 duration-500 pb-12">
+            <div className="flex flex-col gap-2 mt-2">
                 <p className="text-sm font-semibold tracking-wide text-primary uppercase">
                     STEP 1 · 환자 정보
                 </p>
@@ -45,8 +42,13 @@ export default function Step1({
                 <InputField
                     label="이름"
                     placeholder="이름을 입력해주세요"
-                    value={name}
-                    onChange={setName}
+                    value={patientInfo.name}
+                    onChange={(value) =>
+                        setPatientInfo({
+                            ...patientInfo,
+                            name: value,
+                        })
+                    }
                 />
             </div>
             <div>
@@ -54,8 +56,13 @@ export default function Step1({
                     label="전화번호"
                     placeholder="010-0000-0000"
                     type="tel"
-                    value={phone}
-                    onChange={setPhone}
+                    value={patientInfo.phone}
+                    onChange={(value) =>
+                        setPatientInfo({
+                            ...patientInfo,
+                            phone: value
+                        })
+                    }
                 />
             </div>
             <div
@@ -63,17 +70,22 @@ export default function Step1({
                 role="radiogroup"
                 aria-label="환자의 병명을 알려주세요."
             >
-                <label className="text-base font-bold text-foreground break-keep">
+                <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
                     {"환자의 병명을 알려주세요."}
                 </label>
+
+
                 {AGE_OPTIONS.map((option) => (
                     <OptionCard
                         key={option}
                         option={option}
-                        isSelected={diagnosis === option}
-                        dimmed={isAdvancing && diagnosis !== option}
-                        disabled={isAdvancing && diagnosis !== option}
-                        onSelect={() => handleSelectDiagnosis(option)}
+                        isSelected={patientInfo.age === option}
+                        onSelect={() =>
+                            setPatientInfo({
+                                ...patientInfo,
+                                age: option
+                            })
+                        }
                     />
                 ))}
             </div>
