@@ -72,6 +72,9 @@ export default function Step4({
             </div>
 
             <div>
+                <label className="text-lg font-semibold text-foreground leading-relaxed break-keep">
+                    치료사가 미리 알아야 할 사항이 있다면 알려주세요.
+                </label>
                 <InputField
                     label="치료사가 미리 알아야 할 사항이 있다면 알려주세요."
                     placeholder="최근 수술 / 골절 / 심한 통증 / 골다공증 / 기타"
