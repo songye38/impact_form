@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { PrepareData } from "@/types/types";
 import { useLocation } from "wouter";
-import { useForm } from "@formspree/react";
+import { trackEvent } from "@/analytics/ga";
 
 
 export default function Prepare() {
@@ -57,6 +57,7 @@ export default function Prepare() {
         console.log("Formspree 응답:", result);
 
         if (response.ok) {
+            trackEvent("prepare_submit");
             setSubmitted(true);
         }
     };
@@ -89,6 +90,12 @@ export default function Prepare() {
     useEffect(() => {
         console.log("현재 입력 데이터:", formData);
     }, [formData]);
+
+    useEffect(() => {
+        trackEvent("prepare_step_view", {
+            step: step,
+        });
+    }, [step]);
 
     const setPatientInfo = (value: PrepareData["patient"]) => {
         setFormData((prev) => ({
@@ -136,6 +143,12 @@ export default function Prepare() {
             alert("필수 항목을 모두 입력해주세요.");
             return;
         }
+
+        // 현재 단계 완료 이벤트
+        trackEvent("prepare_step_complete", {
+            step: step,
+        });
+
 
         if (step < 4) {
             setStep((prev) => prev + 1);
@@ -186,15 +199,64 @@ export default function Prepare() {
         }
     };
 
+    const copyLink = async () => {
+        trackEvent("click_share", {
+            button_name: "link_share",
+        });
+        await navigator.clipboard.writeText(
+            window.location.href
+        );
+
+        alert("링크가 복사되었습니다.");
+    };
+
+
+    const handleInstagram = () => {
+        trackEvent("click_instagram", {
+            button_name: "instagram",
+        });
+
+        window.open(
+            "https://www.instagram.online1rehab/your_instagram_id/",
+            "_blank"
+        );
+    };
+
     if (submitted) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen">
+            <div className="flex flex-col items-center justify-center min-h-screen px-6 text-center">
+
                 <h1 className="text-2xl font-bold">
                     신청이 완료되었습니다.
                 </h1>
+
                 <p className="mt-4 text-muted-foreground">
                     확인 후 연락드리겠습니다.
                 </p>
+
+
+                <div className="mt-10 w-full max-w-sm flex flex-col gap-3">
+
+                    <Button
+                        size="lg"
+                        className="h-14 rounded-2xl text-base font-bold"
+                        onClick={handleInstagram}
+                    >
+                        홈 재활 콘텐츠 받아보기
+                    </Button>
+
+
+                    <Button
+                        variant="outline"
+                        size="lg"
+                        className="h-14 rounded-2xl text-base font-bold"
+                        onClick={copyLink}
+                    >
+                        친구에게도 공유하기 (링크 복사하기)
+                    </Button>
+
+                </div>
+
             </div>
         );
     }

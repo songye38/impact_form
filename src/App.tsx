@@ -5,6 +5,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Prepare from '@/pages/Prepare/prepare'
+import { useEffect } from "react";
+import { initGA } from "@/analytics/ga";
+
 
 import PreClass from "@/pages/pre-class";
 
@@ -22,6 +25,11 @@ function Router() {
 }
 
 function App() {
+
+  useEffect(() => {
+    initGA();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
