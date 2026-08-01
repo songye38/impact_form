@@ -6,12 +6,60 @@ import Step4 from "./steps/Step_4";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { PrepareData } from "@/types/types";
+import { useLocation } from "wouter";
+import { useForm } from "@formspree/react";
 
 
 export default function Prepare() {
     const [step, setStep] = useState(1);
     const [diagnosis, setDiagnosis] = useState<string | null>(null);
     const [isAdvancing, setIsAdvancing] = useState(false);
+    const [, setLocation] = useLocation();
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleBack = () => {
+        setLocation("/");
+    };
+
+    const handleSubmit = async () => {
+        const submitData = {
+            name: formData.patient.name,
+            phone: formData.patient.phone,
+            age: formData.patient.age,
+
+            forWho: formData.participant.forWho,
+            relationship: formData.participant.relationship,
+
+            onlineAvailable: formData.participation.onlineAvailable,
+            diagnosisPeriod: formData.participation.diagnosisPeriod,
+            rehabilitationStatus: formData.participation.rehabilitationStatus,
+            deviceAvailable: formData.participation.deviceAvailable,
+
+            affectedParts: formData.safety.affectedParts.join(", "),
+            description: formData.safety.description,
+        };
+
+        const response = await fetch(
+            "https://formspree.io/f/mdaqreev",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify(submitData),
+            }
+        );
+
+        const result = await response.json();
+
+        console.log("전송 데이터:", submitData);
+        console.log("Formspree 응답:", result);
+
+        if (response.ok) {
+            setSubmitted(true);
+        }
+    };
 
     const [formData, setFormData] = useState<PrepareData>({
         patient: {
@@ -81,12 +129,7 @@ export default function Prepare() {
     };
 
 
-    // const handleSelectDiagnosis = (option: string) => {
-    //     setDiagnosis(option);
-    //     autoAdvance(2);
-    // };
-
-    const handleNext = () => {
+    const handleNext = async () => {
         const isValid = validateStep();
 
         if (!isValid) {
@@ -97,6 +140,7 @@ export default function Prepare() {
         if (step < 4) {
             setStep((prev) => prev + 1);
         } else {
+            await handleSubmit();
             console.log("최종 제출 데이터", formData);
         }
     };
@@ -107,9 +151,6 @@ export default function Prepare() {
         }
     };
 
-    const handleBack = () => {
-        print();
-    };
 
     const validateStep = () => {
         switch (step) {
@@ -145,9 +186,20 @@ export default function Prepare() {
         }
     };
 
+    if (submitted) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen">
+                <h1 className="text-2xl font-bold">
+                    신청이 완료되었습니다.
+                </h1>
+                <p className="mt-4 text-muted-foreground">
+                    확인 후 연락드리겠습니다.
+                </p>
+            </div>
+        );
+    }
+
     return (
-
-
 
         <div className="w-full min-h-screen bg-background flex justify-center pb-24">
             <div className="w-full max-w-md flex flex-col">
